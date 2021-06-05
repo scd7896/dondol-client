@@ -1,0 +1,15 @@
+.wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh !important;
+}
+
+.form {
+	width: 500px;
+	padding: 50px;
+}
+
+.imageWrapper {
+	margin-left: 32px;
+}
