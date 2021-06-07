@@ -1,9 +1,12 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import { Button, Input, Upload } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+
 import Editor from "./Editor";
 import request from "../lib/request";
-import Modal from "antd/lib/modal/Modal";
+import ImageDetailModal from "./ImageDetailModal";
+import styles from "./EditForm.module.css";
+
 function getBase64(file) {
 	return new Promise((resolve, reject) => {
 		const reader = new FileReader();
@@ -32,6 +35,9 @@ export default function EditForm({
 	const [content, setContent] = useState(defaultContent);
 	const [prevData, setPrevData] = useState({ isOpen: false, title: "", previewImage: "" });
 	const [fileList, setFileList] = useState(defaultImages);
+	useEffect(() => {
+		console.log(fileList);
+	}, [fileList]);
 	const inputRef = useRef(null);
 	const meetDateRef = useRef(null);
 
@@ -61,8 +67,9 @@ export default function EditForm({
 	const preUpload = useCallback(async () => {
 		const formData = new FormData();
 		fileList.filter((file) => file.originFileObj).map(({ originFileObj }) => formData.append("files", originFileObj));
+		const preImages = fileList.filter((file) => !file.originFileObj).map(({ url }) => url);
 		const { data } = await request.post("/upload", { body: formData });
-		return data;
+		return [...preImages, ...data];
 	}, [fileList]);
 
 	const submitUpload = useCallback(async () => {
@@ -77,18 +84,16 @@ export default function EditForm({
 
 	return (
 		<div>
-			<Modal
-				visible={prevData.isOpen}
+			<ImageDetailModal
+				isOpen={prevData.isOpen}
 				title={prevData.title}
-				footer={null}
 				onCancel={() => setPrevData({ isOpen: false, title: "", previewImage: "" })}
-			>
-				<img alt="example" style={{ width: "100%" }} src={prevData.previewImage} />
-			</Modal>
-			<div>
+				image={prevData.previewImage}
+			/>
+			<div className={styles.inputWrapper}>
 				<Input placeholder="제목을 입력하세요" ref={inputRef} defaultValue={defaultTitle} name="title" />
 			</div>
-			<div>
+			<div className={styles.inputWrapper}>
 				<Input placeholder="만날 날을 입력하세요" ref={meetDateRef} defaultValue={defaultMeetDate} name="meetDate" />
 			</div>
 			<Upload
@@ -105,11 +110,11 @@ export default function EditForm({
 			</Upload>
 
 			<Editor value={content} setValue={setContent} name="content" />
-			<div>
-				<Button type="primary" onClick={submitUpload}>
+			<div className={styles.footer}>
+				<Button className={styles.footerButton} type="primary" onClick={submitUpload}>
 					확인
 				</Button>
-				<Button type="default" onClick={onCancel}>
+				<Button className={styles.footerButton} type="default" onClick={onCancel}>
 					취소
 				</Button>
 			</div>

@@ -1,0 +1,11 @@
+.footer {
+	margin-top: 16px;
+}
+
+.footerButton + .footerButton {
+	margin-left: 8px;
+}
+
+.inputWrapper {
+	margin-bottom: 14px;
+}
