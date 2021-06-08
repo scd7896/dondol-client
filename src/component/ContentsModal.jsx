@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import { Button, Modal } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import request from "../lib/request";
 import EditForm from "./EditForm";
@@ -26,6 +26,7 @@ export default function ContentsModal({ isOpen, onCloseClick, onSubmitClick, tar
 	const onSubmitListener = useCallback(
 		async (arg) => {
 			await request.put(`/post/${targetId}`, { body: arg });
+			alert("게시물이 수정되었습니다.");
 			onSubmitClick();
 		},
 		[onSubmitClick, targetId]
@@ -47,7 +48,7 @@ export default function ContentsModal({ isOpen, onCloseClick, onSubmitClick, tar
 	}, [targetId, requestPostDetail]);
 
 	return (
-		<Modal title={post.title} visible={isOpen} onOk={onSubmitClick} onCancel={onCloseClick} footer={null}>
+		<Modal title={post.title} visible={isOpen} onCancel={onCloseClick} footer={null} width="80%">
 			{isChangeMode ? (
 				<EditForm
 					defaultContent={post.contents}
@@ -71,12 +72,14 @@ export default function ContentsModal({ isOpen, onCloseClick, onSubmitClick, tar
 						image={previewData.previewImage}
 					/>
 					<div dangerouslySetInnerHTML={{ __html: post.contents }} />
-					<div>
+					<div className={styles.imageWrapper}>
 						{post.images.map(({ path }) => (
 							<img className={styles.image} src={path} onClick={() => imageDetailOpen(path)} alt="예시 이미지" />
 						))}
 					</div>
-					<button onClick={() => setIsChangeMode(true)}>수정모드</button>
+					<Button style={{ marginTop: "32px" }} onClick={() => setIsChangeMode(true)}>
+						수정모드
+					</Button>
 				</div>
 			)}
 		</Modal>
