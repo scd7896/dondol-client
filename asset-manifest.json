@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/dondol-client/static/css/main.e5a71808.chunk.css",
+    "main.js": "/dondol-client/static/js/main.3794ed84.chunk.js",
+    "main.js.map": "/dondol-client/static/js/main.3794ed84.chunk.js.map",
+    "runtime-main.js": "/dondol-client/static/js/runtime-main.46906219.js",
+    "runtime-main.js.map": "/dondol-client/static/js/runtime-main.46906219.js.map",
+    "static/css/2.9ad672d9.chunk.css": "/dondol-client/static/css/2.9ad672d9.chunk.css",
+    "static/js/2.918d0d56.chunk.js": "/dondol-client/static/js/2.918d0d56.chunk.js",
+    "static/js/2.918d0d56.chunk.js.map": "/dondol-client/static/js/2.918d0d56.chunk.js.map",
+    "index.html": "/dondol-client/index.html",
+    "static/css/2.9ad672d9.chunk.css.map": "/dondol-client/static/css/2.9ad672d9.chunk.css.map",
+    "static/css/main.e5a71808.chunk.css.map": "/dondol-client/static/css/main.e5a71808.chunk.css.map",
+    "static/js/2.918d0d56.chunk.js.LICENSE.txt": "/dondol-client/static/js/2.918d0d56.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.46906219.js",
+    "static/css/2.9ad672d9.chunk.css",
+    "static/js/2.918d0d56.chunk.js",
+    "static/css/main.e5a71808.chunk.css",
+    "static/js/main.3794ed84.chunk.js"
+  ]
+}
