@@ -25,9 +25,7 @@ class RequestObject {
 	constructor() {
 		this.client = axios.create({
 			baseURL:
-				process.env.NODE_ENV === "production"
-					? "http://ec2-15-165-114-69.ap-northeast-2.compute.amazonaws.com"
-					: "http://localhost:9100",
+				process.env.NODE_ENV === "production" ? "https://doldol-server.askkimserver.com" : "http://localhost:9100",
 		});
 		this.client.interceptors.request.use(preRequestSet, preErrorSet);
 		this.client.interceptors.response.use(responseHandle, errorHandle);
