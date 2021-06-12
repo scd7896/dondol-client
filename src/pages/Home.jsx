@@ -2,9 +2,9 @@ import { Layout, Form, Input, Button } from "antd";
 import styles from "./Home.module.css";
 
 import Template from "../templates/Template";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import request from "../lib/request";
-import { setCookie } from "../lib/cookie";
+import { getCookie, setCookie } from "../lib/cookie";
 import { CLIENT_BASE_URL } from "../lib/constants";
 import { useHistory } from "react-router";
 
@@ -17,11 +17,27 @@ export default function Home() {
 			const {
 				data: { accessToken },
 			} = await request.post("/auth/login", { body: { user: arg } });
-			setCookie("token", accessToken);
+			setCookie("token", accessToken, 2);
 			history.push(`${CLIENT_BASE_URL}post`);
 		},
 		[history]
 	);
+
+	useEffect(() => {
+		const token = getCookie("token");
+		if (token) {
+			const checkToken = async () => {
+				const {
+					data: { accessToken },
+				} = await request.post("/auth/check", { body: { token } });
+				if (accessToken) {
+					setCookie("token", accessToken, 2);
+					history.push(`${CLIENT_BASE_URL}post`);
+				}
+			};
+			checkToken();
+		}
+	}, [history]);
 
 	return (
 		<Template>
